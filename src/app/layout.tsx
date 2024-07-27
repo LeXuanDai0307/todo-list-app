@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false;
 import './globals.css';
 
 const dmSans = DM_Sans({ subsets: ['latin'] });

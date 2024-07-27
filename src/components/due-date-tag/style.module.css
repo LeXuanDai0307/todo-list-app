@@ -1,0 +1,28 @@
+.base {
+  width: fit-content;
+  padding: 8px;
+  border-radius: var(--border-radius);
+  background-color: var(--default-priority-color);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semi-bold);
+}
+
+.default {
+  background-color: var(--default-priority-color);
+  color: var(--text-color);
+}
+
+.low {
+  background-color: var(--low-priority-color);
+  color: var(--text-light-color);
+}
+
+.medium {
+  background-color: var(--medium-priority-color);
+  color: var(--text-light-color);
+}
+
+.high {
+  background-color: var(--high-priority-color);
+  color: var(--text-light-color);
+}

@@ -1,0 +1,21 @@
+.base {
+  width: 24px;
+  height: 12px;
+  border-radius: 0px 4px 4px 24px;
+}
+
+.default {
+  background-color: var(--default-priority-color);
+}
+
+.low {
+  background-color: var(--low-priority-color);
+}
+
+.medium {
+  background-color: var(--medium-priority-color);
+}
+
+.high {
+  background-color: var(--high-priority-color);
+}

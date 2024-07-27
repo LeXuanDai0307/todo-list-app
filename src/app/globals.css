@@ -1,4 +1,26 @@
 :root {
+  --primary-color: #2b1887;
+  --secondary-color: #d5ccff;
+
+  --high-priority-color: #e42c5f;
+  --medium-priority-color: #f9d100;
+  --low-priority-color: #2d41a7;
+  --default-priority-color: #d9d9d9;
+
+  --text-color: #000;
+  --text-light-color: #fff;
+  --card-bgr-color: #f4f2ff;
+
+  /* font weight variables */
+  --fw-regular: 400;
+  --fw-semi-bold: 500;
+  --fw-bold: 700;
+
+  /* font size variables */
+  --fs-body: 1rem;
+  --fs-title: 1.5rem;
+
+  --border-radius: 8px;
 }
 
 * {
@@ -11,6 +33,12 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  font-size: 1rem;
+}
+
+body {
+  color: var(--text-color);
+  background: var(--primary-color);
 }
 
 a {
