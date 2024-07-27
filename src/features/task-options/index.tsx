@@ -5,6 +5,9 @@ import styles from './style.module.css';
 import { useRef, useState } from 'react';
 import clsx from 'clsx';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
+import { IconButton } from '@/components/icon-button';
+import { UpdateTaskModal } from '@/features';
+import { DeleteTaskModal } from '@/features/delete-task-modal';
 
 interface TaskOptionsProps {}
 
@@ -16,21 +19,23 @@ export function TaskOptions(props: TaskOptionsProps) {
     setOpen(!open);
   };
 
+  const handleClose = () => setOpen(false);
+
   const optionListStyles = clsx({
     [styles.optionList]: true,
     [styles.active]: open,
   });
 
-  useOnClickOutside(ref, () => setOpen(false));
+  useOnClickOutside(ref, handleClose);
 
   return (
     <div ref={ref} className={styles.wrapper}>
-      <button onClick={toggleOptions} className={styles.optionsBtn}>
+      <IconButton onClick={toggleOptions}>
         <FontAwesomeIcon icon={faEllipsisVertical} />
-      </button>
+      </IconButton>
       <ul className={optionListStyles}>
-        <li>Update</li>
-        <li>Delete</li>
+        <UpdateTaskModal onClose={handleClose} />
+        <DeleteTaskModal onClose={handleClose} />
       </ul>
     </div>
   );

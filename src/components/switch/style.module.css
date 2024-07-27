@@ -1,0 +1,38 @@
+.switchContainer {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.wrapper {
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  border-radius: 20px;
+  background-color: #ccc;
+  position: relative;
+  cursor: pointer;
+}
+
+.circle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: left 0.3s ease-in-out;
+}
+
+.checked {
+  left: 22px;
+  background-color: var(--primary-color);
+}
+
+.input {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}

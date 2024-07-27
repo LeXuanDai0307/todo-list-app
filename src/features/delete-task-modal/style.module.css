@@ -1,0 +1,10 @@
+.confirmText {
+  font-size: var(--fs-body);
+  margin-bottom: 16px;
+}
+
+.formActionsWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}

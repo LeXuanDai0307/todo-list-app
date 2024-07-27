@@ -10,3 +10,13 @@ export enum Priority {
   MEDIUM = 'medium',
   LOW = 'low',
 }
+
+export enum DueDate {
+  MONDAY = 'Mon',
+  TUESDAY = 'Tue',
+  WEDNESDAY = 'Wed',
+  THURSDAY = 'Thu',
+  FRIDAY = 'Fri',
+  SATURDAY = 'Sat',
+  SUNDAY = 'Sun',
+}

@@ -2,7 +2,7 @@ import { EffortLevel } from '@/components/effort-level';
 import styles from './style.module.css';
 import { Effort, Priority } from '@/utils';
 import { DueDateTag } from '@/components/due-date-tag';
-import { TaskOptions } from '@/components/task-options';
+import { TaskOptions } from '@/features/task-options';
 
 interface TaskCardProps {}
 

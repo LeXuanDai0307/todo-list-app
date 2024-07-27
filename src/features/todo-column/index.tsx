@@ -7,15 +7,19 @@ interface TodoColumnProps {
   children?: ReactNode;
   icon: ReactNode;
   title: string;
+  action?: ReactNode;
 }
 
 export function TodoColumn(props: TodoColumnProps) {
-  const { children, icon, title } = props;
+  const { children, icon, title, action } = props;
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        {icon}
-        <h2>{title}</h2>
+        <div className={styles.title}>
+          {icon}
+          <h2>{title}</h2>
+        </div>
+        {action}
       </div>
       {children}
     </div>

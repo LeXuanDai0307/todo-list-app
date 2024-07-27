@@ -1,33 +1,21 @@
-import { TaskCard, TodoColumn } from '@/components';
+import { AddTaskModal, TaskCard, TodoColumn } from '@/features';
 import {
   faClipboard,
   faSquareCheck,
 } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from './page.module.css';
 
 export default function Home() {
   return (
     <main>
-      <div
-        style={{
-          display: 'flex',
-          gap: '40px',
-          maxWidth: '1200px',
-          margin: '40px auto',
-        }}
-      >
+      <div className={styles.container}>
         <TodoColumn
           title='To-Do'
           icon={<FontAwesomeIcon icon={faClipboard} size='2xl' />}
+          action={<AddTaskModal />}
         >
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexDirection: 'column',
-              gap: '24px',
-            }}
-          >
+          <div className={styles.taskListWrapper}>
             {Array.from({ length: 5 }).map((_, index) => (
               <TaskCard key={index} />
             ))}
