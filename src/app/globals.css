@@ -9,6 +9,7 @@
 
   --text-color: #000;
   --text-light-color: #fff;
+
   --card-bgr-color: #f4f2ff;
 
   /* font weight variables */
@@ -19,6 +20,7 @@
   /* font size variables */
   --fs-body: 1rem;
   --fs-title: 1.5rem;
+  --fs-heading: 2rem;
 
   --border-radius: 8px;
 }

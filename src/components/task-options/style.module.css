@@ -1,0 +1,55 @@
+.wrapper {
+  position: relative;
+}
+
+.optionsBtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  width: 24px;
+  height: 24px;
+  transition: background-color 0.3s;
+  border-radius: 50%;
+}
+
+.optionsBtn:focus {
+  outline: none;
+}
+
+.optionsBtn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: var(--primary-color);
+}
+
+.optionList {
+  display: none;
+  position: absolute;
+  width: 100px;
+  top: 24px;
+  right: 0;
+  background-color: var(--card-bgr-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  font-size: 14px;
+  overflow: hidden;
+  transition: display 0.3s ease-in-out;
+}
+
+.active {
+  display: block;
+}
+
+.optionList li {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.optionList li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: var(--primary-color);
+}

@@ -1,0 +1,37 @@
+.wrapper {
+  width: 437px;
+  height: 'auto';
+  border-radius: var(--border-radius);
+  background-color: var(--card-bgr-color);
+  padding: 16px 24px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardHeader > h6 {
+  font-size: var(--fs-title);
+  font-weight: var(--fw-bold);
+}
+
+.cardBody {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.dueDateAndPriority {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cardBody > p {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  color: var(--primary-color);
+}

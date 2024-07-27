@@ -6,7 +6,7 @@ export enum Effort {
 
 export enum Priority {
   DEFAULT = 'default',
-  HIGHT = 'high',
+  HIGH = 'high',
   MEDIUM = 'medium',
   LOW = 'low',
 }
