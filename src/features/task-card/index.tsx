@@ -18,7 +18,9 @@ export function TaskCard(props: TaskCardProps) {
       </div>
       <div className={styles.cardBody}>
         <div className={styles.dueDateAndPriority}>
-          <DueDateTag dueDate={task.dueDate} priority={task.priority} />
+          {task.dueDate.length > 0 && (
+            <DueDateTag dueDate={task.dueDate} priority={task.priority} />
+          )}
           <EffortLevel effort={task.effort} priority={task.priority} />
         </div>
         <p className={styles.client}>{task.client}</p>

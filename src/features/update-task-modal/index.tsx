@@ -17,6 +17,7 @@ export function UpdateTaskModal(props: UpdateTaskModalProps) {
 
   const [open, setOpen] = useState(false);
   const [formValues, setFormValues] = useState<TaskEntity>(task);
+  const [loading, setLoading] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -24,6 +25,7 @@ export function UpdateTaskModal(props: UpdateTaskModalProps) {
 
   const handleClose = () => {
     setOpen(false);
+    setFormValues(task);
     if (onClose) {
       onClose();
     }
@@ -31,11 +33,13 @@ export function UpdateTaskModal(props: UpdateTaskModalProps) {
 
   const onSubmit = async () => {
     try {
+      setLoading(true);
       await updateTask(formValues.id, formValues);
-      handleClose();
       setRefetch(true);
+      handleClose();
+      setLoading(false);
     } catch (error) {
-      console.error('Error updating task: ', error);
+      alert('Error updating task');
     }
   };
 
@@ -49,6 +53,7 @@ export function UpdateTaskModal(props: UpdateTaskModalProps) {
           setFormValues={setFormValues}
           type='Update'
           handleClose={handleClose}
+          loading={loading}
         />
       </Modal>
     </div>

@@ -6,3 +6,4 @@ export * from './text-field';
 export * from './switch';
 export * from './select';
 export * from './button';
+export * from './loading';

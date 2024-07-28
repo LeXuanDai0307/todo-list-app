@@ -17,6 +17,7 @@ export function DeleteTaskModal(props: DeleteTaskModalProps) {
 
   const { setRefetch } = useContext(TodoContext);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -28,11 +29,13 @@ export function DeleteTaskModal(props: DeleteTaskModalProps) {
 
   const handleConfirm = async () => {
     try {
+      setLoading(true);
       await deleteTask(task.id);
       setRefetch(true);
       handleClose();
+      setLoading(false);
     } catch (error) {
-      console.error('Error deleting task: ', error);
+      alert('Error deleting task');
     }
   };
 
@@ -46,9 +49,13 @@ export function DeleteTaskModal(props: DeleteTaskModalProps) {
         </p>
         <div className={styles.formActionsWrapper}>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button color='primary' onClick={handleConfirm}>
-            Delete Task
-          </Button>
+          {loading ? (
+            <Button disabled>Loading...</Button>
+          ) : (
+            <Button color='primary' onClick={handleConfirm}>
+              Delete Task
+            </Button>
+          )}
         </div>
       </Modal>
     </div>

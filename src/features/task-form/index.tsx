@@ -2,11 +2,12 @@
 import { TextField, Select, Switch, Button } from '@/components';
 import {
   DUE_DATE_OPTIONS,
+  DueDate,
   EFFORT_OPTIONS,
   PRIORITY_OPTIONS,
   STATUS_OPTIONS,
 } from '@/utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './style.module.css';
 import { TaskEntity } from '@/types';
 
@@ -16,11 +17,13 @@ interface TaskFormProps {
   formValues: TaskEntity;
   setFormValues: (values: TaskEntity) => void;
   onSubmit: () => void;
+  loading: boolean;
 }
 
 export function TaskForm(props: TaskFormProps) {
-  const { handleClose, type, formValues, setFormValues, onSubmit } = props;
-  const [isChecked, setIsChecked] = useState(!!formValues?.dueDate);
+  const { handleClose, type, formValues, setFormValues, onSubmit, loading } =
+    props;
+  const [isChecked, setIsChecked] = useState(!!formValues?.dueDate.length);
 
   const handleValuesChange = (
     name: keyof TaskEntity,
@@ -34,8 +37,20 @@ export function TaskForm(props: TaskFormProps) {
     onSubmit();
   };
 
+  useEffect(() => {
+    if (!isChecked) {
+      setFormValues({ ...formValues, dueDate: '' });
+    } else {
+      setFormValues({
+        ...formValues,
+        dueDate: DUE_DATE_OPTIONS[0].value as DueDate,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isChecked]);
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <div className={styles.formContentWrapper}>
         <TextField
           name='title'
@@ -69,11 +84,6 @@ export function TaskForm(props: TaskFormProps) {
           value={formValues?.client}
           onChange={handleValuesChange}
         />
-        <Switch
-          label='Has due date:'
-          isChecked={isChecked}
-          setIsChecked={setIsChecked}
-        />
         {type === 'Update' && (
           <Select
             name='status'
@@ -85,6 +95,11 @@ export function TaskForm(props: TaskFormProps) {
             onChange={handleValuesChange}
           />
         )}
+        <Switch
+          label='Has due date:'
+          isChecked={isChecked}
+          setIsChecked={setIsChecked}
+        />
         {isChecked && (
           <Select
             name='dueDate'
@@ -98,10 +113,16 @@ export function TaskForm(props: TaskFormProps) {
         )}
       </div>
       <div className={styles.formActionsWrapper}>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button type='submit' color='primary' onClick={handleClose}>
-          {`${type} Task`}
+        <Button type='button' onClick={handleClose}>
+          Cancel
         </Button>
+        {loading ? (
+          <Button disabled>Loading...</Button>
+        ) : (
+          <Button type='submit' color='primary'>
+            {`${type} Task`}
+          </Button>
+        )}
       </div>
     </form>
   );

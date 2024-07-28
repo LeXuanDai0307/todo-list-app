@@ -6,7 +6,7 @@ export interface TaskEntity {
   priority: Priority;
   effort: Effort;
   client: string;
-  dueDate: DueDate;
+  dueDate: DueDate | '';
   status: Status;
 }
 

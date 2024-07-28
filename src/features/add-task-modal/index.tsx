@@ -10,27 +10,32 @@ import { createTask } from '@/services';
 import { TodoContext } from '@/app/page';
 import styles from './style.module.css';
 
-interface AddTaskModalProps {}
+const defaultFormValues: TaskEntity = {
+  title: '',
+  client: '',
+  id: '',
+  dueDate: DueDate.MONDAY,
+  effort: Effort.EASY,
+  priority: Priority.LOW,
+  status: Status.TODO,
+};
 
-export function AddTaskModal(props: AddTaskModalProps) {
+export function AddTaskModal() {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { setRefetch } = useContext(TodoContext);
-  const [formValues, setFormValues] = useState<TaskEntity>({
-    title: '',
-    client: '',
-    id: '',
-    dueDate: DueDate.MONDAY,
-    effort: Effort.EASY,
-    priority: Priority.LOW,
-    status: Status.TODO,
-  });
+  const [formValues, setFormValues] = useState<TaskEntity>(defaultFormValues);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setFormValues(defaultFormValues);
+  };
 
   const onSubmit = async () => {
     try {
+      setLoading(true);
       let payload: CreateTaskInput = {
         title: formValues.title,
         priority: formValues.priority,
@@ -42,8 +47,9 @@ export function AddTaskModal(props: AddTaskModalProps) {
       await createTask(payload);
       setRefetch(true);
       handleClose();
+      setLoading(false);
     } catch (error) {
-      console.error('Error creating task: ', error);
+      alert('Error creating task');
     }
   };
 
@@ -60,6 +66,7 @@ export function AddTaskModal(props: AddTaskModalProps) {
           setFormValues={setFormValues}
           type='Add'
           handleClose={handleClose}
+          loading={loading}
         />
       </Modal>
     </div>

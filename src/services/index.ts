@@ -1,7 +1,7 @@
 import { CreateTaskInput, UpdateTaskInput } from '@/types';
 
 const url =
-  'https://script.google.com/macros/s/AKfycbw_SYiaIvQVCCImB2FT6wapr8Sfb0PWGK_YZ67sPZ3MffnP8Loqkdu0I1Eswg5Lk92K/exec';
+  'https://script.google.com/macros/s/AKfycbx2I9qhxUYK46jNvNKESAI33NDsXGQN05_uEQAtZTWV9aiepFrF7M3FlbwJFlaj3Ui0/exec';
 
 export const getTasks = async () => {
   const response = await fetch(url);

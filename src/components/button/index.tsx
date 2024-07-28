@@ -10,12 +10,18 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button(props: ButtonProps) {
-  const { color = 'default', children, className, ...rest } = props;
+  const {
+    type = 'button',
+    color = 'default',
+    children,
+    className,
+    ...rest
+  } = props;
 
   const buttonStyles = clsx(styles.button, styles[color], className);
 
   return (
-    <button className={buttonStyles} {...rest}>
+    <button type={type} className={buttonStyles} {...rest}>
       {children}
     </button>
   );
