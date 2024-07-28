@@ -6,15 +6,13 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './page.module.css';
-import { createContext, useCallback, useEffect, useState } from 'react';
+import { createContext, use, useCallback, useEffect, useState } from 'react';
 import { TaskEntity } from '@/types';
-import { getTasks } from '@/services';
+import { getTasks, updateTask } from '@/services';
 import { Order, Status } from '@/utils';
-import { Button } from '@/components';
-import {
-  faArrowUpShortWide,
-  faArrowDownWideShort,
-} from '@fortawesome/free-solid-svg-icons';
+
+import useSortTasks from '@/hooks/use-sort-tasks';
+import { SortTasksButton } from '@/features/sort-tasks-button';
 
 type TodoContextType = {
   setRefetch: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,40 +21,30 @@ export const TodoContext = createContext<TodoContextType>({
   setRefetch: () => {},
 });
 
+export type TaskColumns = {
+  [Status.TODO]: TaskEntity[];
+  [Status.DONE]: TaskEntity[];
+};
+
 export default function Home() {
-  const [tasks, setTasks] = useState<{
-    todo: TaskEntity[];
-    done: TaskEntity[];
-  }>();
+  const [taskColumns, setTaskColumns] = useState<TaskColumns>();
+
   const [refetch, setRefetch] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [sortState, setSortState] = useState<{
-    todo: Order;
-    done: Order;
-  }>({
-    todo: Order.DESC,
-    done: Order.DESC,
-  });
-
-  const handleSort = (column: 'todo' | 'done') => {
-    setSortState((prevState) => {
-      return {
-        ...prevState,
-        [column]: prevState[column] === Order.ASC ? Order.DESC : Order.ASC,
-      };
-    });
-  };
+  const { sortState, handleSort } = useSortTasks();
 
   const fetchTasks = useCallback(async () => {
     setLoading(true);
     const task = await getTasks();
+
     const todo = task.filter((task: TaskEntity) => task.status == Status.TODO);
-    const sortedTodo = sortTasks([...todo], sortState.todo);
+    const sortedTodo = sortTasks([...todo], sortState[Status.TODO]);
     const done = task.filter((task: TaskEntity) => task.status == Status.DONE);
-    const sortedDone = sortTasks([...done], sortState.done);
-    setTasks({
-      todo: sortedTodo,
-      done: sortedDone,
+    const sortedDone = sortTasks([...done], sortState[Status.DONE]);
+
+    setTaskColumns({
+      [Status.TODO]: sortedTodo,
+      [Status.DONE]: sortedDone,
     });
     setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,17 +80,79 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (tasks) {
-      const sortedTodo = sortTasks([...tasks.todo], sortState.todo);
-      const sortedDone = sortTasks([...tasks.done], sortState.done);
+    if (taskColumns) {
+      const sortedTodo = sortTasks(
+        [...taskColumns[Status.TODO]],
+        sortState[Status.TODO],
+      );
+      const sortedDone = sortTasks(
+        [...taskColumns[Status.DONE]],
+        sortState[Status.DONE],
+      );
 
-      setTasks({
-        todo: sortedTodo,
-        done: sortedDone,
+      setTaskColumns({
+        [Status.TODO]: sortedTodo,
+        [Status.DONE]: sortedDone,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortState]);
+
+  const [dropIndicator, setDropIndicator] = useState<string | null>(null);
+
+  const handleDragStart = (
+    e: React.DragEvent<HTMLDivElement>,
+    taskId: string,
+  ) => {
+    console.log('drag start', taskId);
+    e.dataTransfer.setData('text/plain', taskId);
+  };
+
+  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    e.dataTransfer.clearData();
+    setDropIndicator(null);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>, status: Status) => {
+    e.preventDefault();
+    const taskId = e.dataTransfer.getData('text/plain');
+
+    const dropTask = [
+      ...taskColumns?.[Status.TODO]!,
+      ...taskColumns?.[Status.DONE]!,
+    ]?.find((task) => task.id.toString() === taskId);
+
+    if (dropTask) {
+      let newTasks = [
+        ...taskColumns?.[Status.TODO]!,
+        ...taskColumns?.[Status.DONE]!,
+      ].filter((task) => task.id !== dropTask.id);
+      dropTask.status = status;
+      newTasks.push(dropTask);
+
+      const todo = newTasks.filter(
+        (task: TaskEntity) => task.status == Status.TODO,
+      );
+      const sortedTodo = sortTasks([...todo], sortState[Status.TODO]);
+      const done = newTasks.filter(
+        (task: TaskEntity) => task.status == Status.DONE,
+      );
+      const sortedDone = sortTasks([...done], sortState[Status.DONE]);
+
+      setTaskColumns({
+        [Status.TODO]: sortedTodo,
+        [Status.DONE]: sortedDone,
+      });
+      updateTask(dropTask.id, dropTask);
+    }
+
+    setDropIndicator(null);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDropIndicator(e.currentTarget.id);
+  };
 
   return (
     <TodoContext.Provider value={{ setRefetch }}>
@@ -112,23 +162,31 @@ export default function Home() {
             title='To-Do'
             icon={<FontAwesomeIcon icon={faClipboard} size='2xl' />}
             action={
-              <Button onClick={() => handleSort('todo')} color='primary'>
-                {sortState.todo === Order.ASC ? (
-                  <FontAwesomeIcon icon={faArrowDownWideShort} />
-                ) : (
-                  <FontAwesomeIcon icon={faArrowUpShortWide} />
-                )}
-                <span>Sort By Priority</span>
-              </Button>
+              <SortTasksButton
+                status={Status.TODO}
+                sortState={sortState}
+                handleSort={handleSort}
+              />
             }
           >
-            <div className={styles.taskListWrapper}>
+            <div
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, Status.TODO)}
+              className={styles.taskListWrapper}
+            >
               <AddTaskModal />
               {loading ? (
                 <div>Loading...</div>
               ) : (
-                tasks?.todo.map((task) => (
-                  <TaskCard key={task.id} task={task} />
+                taskColumns?.[Status.TODO].map((task) => (
+                  <div
+                    key={`todo-${task.id}`}
+                    draggable
+                    onDragStart={(e) => handleDragStart(e, task.id)}
+                    onDragEnd={handleDragEnd}
+                  >
+                    <TaskCard task={task} />
+                  </div>
                 ))
               )}
             </div>
@@ -137,22 +195,30 @@ export default function Home() {
             title='Done'
             icon={<FontAwesomeIcon icon={faSquareCheck} size='2xl' />}
             action={
-              <Button onClick={() => handleSort('done')} color='primary'>
-                {sortState.done === Order.ASC ? (
-                  <FontAwesomeIcon icon={faArrowDownWideShort} />
-                ) : (
-                  <FontAwesomeIcon icon={faArrowUpShortWide} />
-                )}
-                <span>Sort By Priority</span>
-              </Button>
+              <SortTasksButton
+                status={Status.DONE}
+                sortState={sortState}
+                handleSort={handleSort}
+              />
             }
           >
             {loading ? (
               <div>Loading...</div>
             ) : (
-              <div className={styles.taskListWrapper}>
-                {tasks?.done.map((task) => (
-                  <TaskCard key={task.id} task={task} />
+              <div
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, Status.DONE)}
+                className={styles.taskListWrapper}
+              >
+                {taskColumns?.[Status.DONE].map((task) => (
+                  <div
+                    key={`done-${task.id}`}
+                    draggable
+                    onDragStart={(e) => handleDragStart(e, task.id)}
+                    onDragEnd={handleDragEnd}
+                  >
+                    <TaskCard task={task} />
+                  </div>
                 ))}
               </div>
             )}
