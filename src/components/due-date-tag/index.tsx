@@ -1,4 +1,4 @@
-import { Priority } from '@/utils';
+import { Priority, PRIORITY_CLASS } from '@/utils';
 import styles from './style.module.css';
 import clsx from 'clsx';
 
@@ -12,7 +12,7 @@ export function DueDateTag(props: DueDateTagProps) {
 
   const levelItemStyles = clsx({
     [styles.base]: true,
-    [styles[priority]]: priority,
+    [styles[PRIORITY_CLASS[priority]]]: true,
   });
 
   return <div className={levelItemStyles}>{dueDate}</div>;

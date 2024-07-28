@@ -1,9 +1,10 @@
 'use client';
+import { TodoContext } from '@/app/page';
 import { Modal } from '@/components';
 import { TaskForm } from '@/features/task-form';
 import { updateTask } from '@/services';
 import { TaskEntity } from '@/types';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 interface UpdateTaskModalProps {
   onClose?: () => void;
@@ -12,6 +13,8 @@ interface UpdateTaskModalProps {
 
 export function UpdateTaskModal(props: UpdateTaskModalProps) {
   const { onClose, task } = props;
+  const { setRefetch } = useContext(TodoContext);
+
   const [open, setOpen] = useState(false);
   const [formValues, setFormValues] = useState<TaskEntity>(task);
 
@@ -30,7 +33,7 @@ export function UpdateTaskModal(props: UpdateTaskModalProps) {
     try {
       await updateTask(formValues.id, formValues);
       handleClose();
-      alert('Task updated successfully');
+      setRefetch(true);
     } catch (error) {
       console.error('Error updating task: ', error);
     }

@@ -5,10 +5,10 @@ export enum Effort {
 }
 
 export enum Priority {
-  DEFAULT = 'default',
-  HIGH = 'high',
-  MEDIUM = 'medium',
-  LOW = 'low',
+  DEFAULT,
+  HIGH,
+  MEDIUM,
+  LOW,
 }
 
 export enum Status {
@@ -24,4 +24,9 @@ export enum DueDate {
   FRIDAY = 'Fri',
   SATURDAY = 'Sat',
   SUNDAY = 'Sun',
+}
+
+export enum Order {
+  ASC,
+  DESC,
 }

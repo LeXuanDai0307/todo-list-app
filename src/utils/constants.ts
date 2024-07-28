@@ -1,5 +1,5 @@
 import { SelectOption } from '@/components';
-import { DueDate, Effort, Priority } from '@/utils/enums';
+import { DueDate, Effort, Priority, Status } from '@/utils/enums';
 
 export const PRIORITY_OPTIONS: SelectOption[] = [
   { value: Priority.LOW, label: 'Low' },
@@ -22,3 +22,15 @@ export const DUE_DATE_OPTIONS: SelectOption[] = [
   { value: DueDate.SATURDAY, label: 'Saturday' },
   { value: DueDate.SUNDAY, label: 'Sunday' },
 ];
+
+export const STATUS_OPTIONS: SelectOption[] = [
+  { value: Status.TODO, label: 'To Do' },
+  { value: Status.DONE, label: 'Done' },
+];
+
+export const PRIORITY_CLASS = {
+  [Priority.LOW]: 'low',
+  [Priority.MEDIUM]: 'medium',
+  [Priority.HIGH]: 'high',
+  [Priority.DEFAULT]: 'default',
+};

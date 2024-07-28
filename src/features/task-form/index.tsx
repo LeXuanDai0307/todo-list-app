@@ -1,6 +1,11 @@
 'use client';
 import { TextField, Select, Switch, Button } from '@/components';
-import { DUE_DATE_OPTIONS, EFFORT_OPTIONS, PRIORITY_OPTIONS } from '@/utils';
+import {
+  DUE_DATE_OPTIONS,
+  EFFORT_OPTIONS,
+  PRIORITY_OPTIONS,
+  STATUS_OPTIONS,
+} from '@/utils';
 import { useState } from 'react';
 import styles from './style.module.css';
 import { TaskEntity } from '@/types';
@@ -69,6 +74,17 @@ export function TaskForm(props: TaskFormProps) {
           isChecked={isChecked}
           setIsChecked={setIsChecked}
         />
+        {type === 'Update' && (
+          <Select
+            name='status'
+            value={STATUS_OPTIONS.find(
+              (status) => status.value === formValues?.status,
+            )}
+            options={STATUS_OPTIONS}
+            label='Status'
+            onChange={handleValuesChange}
+          />
+        )}
         {isChecked && (
           <Select
             name='dueDate'

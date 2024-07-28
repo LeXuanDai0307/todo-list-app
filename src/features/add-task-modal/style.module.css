@@ -1,0 +1,28 @@
+.addBtn {
+  width: 437px;
+  height: 100px;
+  border-radius: var(--border-radius);
+  background-color: var(--card-bgr-color);
+  outline: none;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: var(--primary-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  font-size: var(--fs-subtitle);
+  font-weight: var(--fw-bold);
+  color: var(--primary-color);
+  cursor: pointer;
+
+  transition: background-color 0.3s ease;
+}
+
+.addBtn:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: #fff;
+}

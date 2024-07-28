@@ -1,10 +1,11 @@
 'use client';
 import { Button, Modal } from '@/components';
 import { type } from 'os';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styles from './style.module.css';
 import { TaskEntity } from '@/types';
 import { deleteTask } from '@/services';
+import { TodoContext } from '@/app/page';
 
 interface DeleteTaskModalProps {
   onClose?: () => void;
@@ -13,6 +14,8 @@ interface DeleteTaskModalProps {
 
 export function DeleteTaskModal(props: DeleteTaskModalProps) {
   const { onClose, task } = props;
+
+  const { setRefetch } = useContext(TodoContext);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -26,7 +29,7 @@ export function DeleteTaskModal(props: DeleteTaskModalProps) {
   const handleConfirm = async () => {
     try {
       await deleteTask(task.id);
-      alert('Task deleted successfully');
+      setRefetch(true);
       handleClose();
     } catch (error) {
       console.error('Error deleting task: ', error);

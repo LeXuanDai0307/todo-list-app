@@ -1,6 +1,5 @@
 import { EffortLevel } from '@/components/effort-level';
 import styles from './style.module.css';
-import { Effort, Priority } from '@/utils';
 import { DueDateTag } from '@/components/due-date-tag';
 import { TaskOptions } from '@/features/task-options';
 import { TaskEntity } from '@/types';
