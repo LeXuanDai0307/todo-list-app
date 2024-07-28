@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import styles from './style.module.css';
 import { TaskEntity } from '@/types';
 import { deleteTask } from '@/services';
-import { TodoContext } from '@/app/page';
+import { TodoContext } from '@/context';
 
 interface DeleteTaskModalProps {
   onClose?: () => void;

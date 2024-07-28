@@ -1,25 +1,17 @@
 import { TaskColumns } from '@/app/page';
 import { SortState } from '@/hooks/use-sort-tasks';
 import { updateTask } from '@/services';
-import { TaskEntity } from '@/types';
-import { Status } from '@/utils';
+import { filterTasks, Status } from '@/utils';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 interface useDragDropTaskParams {
   taskColumns: TaskColumns | undefined;
   setTaskColumns: Dispatch<SetStateAction<TaskColumns | undefined>>;
   sortState: SortState;
-  filterTasks: (
-    tasks: TaskEntity[],
-    sortState: SortState,
-  ) => {
-    todoTasks: TaskEntity[];
-    doneTasks: TaskEntity[];
-  };
 }
 
 export function useDragDropTask(params: useDragDropTaskParams) {
-  const { taskColumns, setTaskColumns, filterTasks, sortState } = params;
+  const { taskColumns, setTaskColumns, sortState } = params;
   const [dropIndicator, setDropIndicator] = useState<string | null>(null);
   const [moveLoading, setMoveLoading] = useState(false);
 

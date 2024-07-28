@@ -7,8 +7,8 @@ import { TaskForm } from '@/features/task-form';
 import { CreateTaskInput, TaskEntity } from '@/types';
 import { DueDate, Effort, Priority, Status } from '@/utils';
 import { createTask } from '@/services';
-import { TodoContext } from '@/app/page';
 import styles from './style.module.css';
+import { TodoContext } from '@/context';
 
 const defaultFormValues: TaskEntity = {
   title: '',

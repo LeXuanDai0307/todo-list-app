@@ -1,13 +1,6 @@
 import { TaskColumns } from '@/app/page';
-import { TaskEntity } from '@/types';
-import { Status, Order } from '@/utils';
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { Status, Order, sortTasks } from '@/utils';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 export type SortState = {
   [Status.TODO]: Order;
@@ -35,12 +28,6 @@ export default function useSortTasks(params: UseSortTasksParams) {
     });
   };
 
-  const sortTasks = useCallback((tasks: TaskEntity[], order: Order) => {
-    return tasks.sort((a, b) =>
-      order === Order.ASC ? a.priority - b.priority : b.priority - a.priority,
-    );
-  }, []);
-
   useEffect(() => {
     if (taskColumns) {
       const sortedTodo = sortTasks(
@@ -60,5 +47,5 @@ export default function useSortTasks(params: UseSortTasksParams) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortState, sortTasks]);
 
-  return { sortState, handleSort, sortTasks };
+  return { sortState, handleSort };
 }

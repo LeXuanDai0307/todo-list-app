@@ -1,6 +1,6 @@
 'use client';
-import { TodoContext } from '@/app/page';
 import { Modal } from '@/components';
+import { TodoContext } from '@/context';
 import { TaskForm } from '@/features/task-form';
 import { updateTask } from '@/services';
 import { TaskEntity } from '@/types';

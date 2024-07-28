@@ -6,7 +6,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './page.module.css';
-import { createContext, useState } from 'react';
+import { useState } from 'react';
 import { TaskEntity } from '@/types';
 import { Status } from '@/utils';
 import useSortTasks from '@/hooks/use-sort-tasks';
@@ -14,13 +14,7 @@ import { SortTasksButton } from '@/features/sort-tasks-button';
 import { useDragDropTask, useFetchTask } from '@/hooks';
 import clsx from 'clsx';
 import { Loading } from '@/components';
-
-type TodoContextType = {
-  setRefetch: React.Dispatch<React.SetStateAction<boolean>>;
-};
-export const TodoContext = createContext<TodoContextType>({
-  setRefetch: () => {},
-});
+import { TodoContext } from '@/context';
 
 export type TaskColumns = {
   [Status.TODO]: TaskEntity[];
@@ -30,17 +24,12 @@ export type TaskColumns = {
 export default function Home() {
   const [taskColumns, setTaskColumns] = useState<TaskColumns>();
 
-  const { sortState, handleSort, sortTasks } = useSortTasks({
+  const { sortState, handleSort } = useSortTasks({
     taskColumns,
     setTaskColumns,
   });
 
-  const {
-    loading: fetchLoading,
-    filterTasks,
-    setRefetch,
-  } = useFetchTask({
-    sortTasks,
+  const { loading: fetchLoading, setRefetch } = useFetchTask({
     sortState,
     setTaskColumns,
   });
@@ -56,7 +45,6 @@ export default function Home() {
     taskColumns,
     setTaskColumns,
     sortState,
-    filterTasks,
   });
 
   const todoTasks = taskColumns?.[Status.TODO] || [];

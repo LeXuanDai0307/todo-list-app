@@ -1,7 +1,6 @@
 import { CreateTaskInput, UpdateTaskInput } from '@/types';
 
-const url =
-  'https://script.google.com/macros/s/AKfycbx2I9qhxUYK46jNvNKESAI33NDsXGQN05_uEQAtZTWV9aiepFrF7M3FlbwJFlaj3Ui0/exec';
+const url = process.env.NEXT_PUBLIC_GOOGLE_SHEET_API ?? '';
 
 export const getTasks = async () => {
   const response = await fetch(url);
