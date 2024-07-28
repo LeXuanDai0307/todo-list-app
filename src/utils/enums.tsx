@@ -11,6 +11,11 @@ export enum Priority {
   LOW = 'low',
 }
 
+export enum Status {
+  TODO,
+  DONE,
+}
+
 export enum DueDate {
   MONDAY = 'Mon',
   TUESDAY = 'Tue',

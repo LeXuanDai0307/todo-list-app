@@ -8,10 +8,14 @@ import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { IconButton } from '@/components/icon-button';
 import { UpdateTaskModal } from '@/features';
 import { DeleteTaskModal } from '@/features/delete-task-modal';
+import { TaskEntity } from '@/types';
 
-interface TaskOptionsProps {}
+interface TaskOptionsProps {
+  task: TaskEntity;
+}
 
 export function TaskOptions(props: TaskOptionsProps) {
+  const { task } = props;
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -34,8 +38,8 @@ export function TaskOptions(props: TaskOptionsProps) {
         <FontAwesomeIcon icon={faEllipsisVertical} />
       </IconButton>
       <ul className={optionListStyles}>
-        <UpdateTaskModal onClose={handleClose} />
-        <DeleteTaskModal onClose={handleClose} />
+        <UpdateTaskModal task={task} onClose={handleClose} />
+        <DeleteTaskModal task={task} onClose={handleClose} />
       </ul>
     </div>
   );

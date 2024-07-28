@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import styles from './style.module.css';
 
@@ -7,29 +8,28 @@ export interface SelectOption {
 }
 
 interface SelectProps {
+  value?: SelectOption;
+  name: string;
   options: SelectOption[];
   label: string;
-  onChange: (value: string) => void;
+  onChange: (name: any, value: any) => void;
 }
 
 export function Select(props: SelectProps) {
-  const { options, label, onChange } = props;
-  const [selectedValue, setSelectedValue] = useState<string | number>(
-    options[0].value,
-  );
+  const { name, options, label, value, onChange } = props;
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(event.target.value);
-    onChange(event.target.value);
+    onChange(event.target.name, event.target.value);
   };
 
   return (
     <div className={styles.selectContainer}>
       <label htmlFor={label}>{label}</label>
       <select
+        name={name}
         className={styles.select}
         id={label}
-        value={selectedValue}
+        value={value?.value}
         onChange={handleSelectChange}
       >
         {options.map((option) => (

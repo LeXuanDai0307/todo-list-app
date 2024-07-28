@@ -2,22 +2,29 @@ import { ChangeEventHandler } from 'react';
 import styles from './style.module.css';
 
 interface TextFieldProps {
+  name: string;
   label: string;
   value: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: (name: any, value: any) => void;
   type?: 'text' | 'password';
   error?: string;
 }
 
 export function TextField(props: TextFieldProps) {
-  const { label, value, onChange, type, error } = props;
+  const { name, label, value, onChange, type, error } = props;
+
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    onChange(event.target.name, event.target.value);
+  };
+
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={label}>{label}</label>
       <input
+        name={name}
         type={type}
         placeholder={label}
-        onChange={onChange}
+        onChange={handleInputChange}
         value={value}
         className={styles.input}
       />
