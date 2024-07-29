@@ -12,7 +12,7 @@ interface UseSortTasksParams {
   setTaskColumns: Dispatch<SetStateAction<TaskColumns | undefined>>;
 }
 
-export default function useSortTasks(params: UseSortTasksParams) {
+export function useSortTasks(params: UseSortTasksParams) {
   const { taskColumns, setTaskColumns } = params;
   const [sortState, setSortState] = useState<SortState>({
     [Status.TODO]: Order.DESC,

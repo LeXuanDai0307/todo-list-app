@@ -1,5 +1,10 @@
 'use client';
-import { AddTaskModal, TaskCard, TodoColumn } from '@/features';
+import {
+  AddTaskModal,
+  SortTasksButton,
+  TaskCard,
+  TodoColumn,
+} from '../../features';
 import {
   faClipboard,
   faSquareCheck,
@@ -8,13 +13,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './page.module.css';
 import { useState } from 'react';
 import { TaskEntity } from '@/types';
-import { Status } from '@/utils';
-import useSortTasks from '@/hooks/use-sort-tasks';
-import { SortTasksButton } from '@/features/sort-tasks-button';
-import { useDragDropTask, useFetchTask } from '@/hooks';
+import { Status } from '../../utils';
+import { useDragDropTask, useFetchTask, useSortTasks } from '../../hooks';
 import clsx from 'clsx';
-import { Loading } from '@/components';
-import { TodoContext } from '@/context';
+import { Loading } from '../../components';
+import { TodoContext } from '../../context';
 
 export type TaskColumns = {
   [Status.TODO]: TaskEntity[];
