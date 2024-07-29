@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[Todo List App Live Demo](https://todo-list-17zdj11s8-lexuandai0307s-projects.vercel.app/)
 
 ## Getting Started
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
+yarn install
+# after that
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the **Landing Page**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Open [http://localhost:3000/home](http://localhost:3000/home) with your browser to see the **Todo List Page**.
 
-## Learn More
+## Functionalities
+- **Landing Page**: Include a landing page for the application.
+- **Add, Delete, and Edit Tasks**: Users should be able to add new tasks, delete
+existing tasks, and edit task details.
+- **Priority Levels**: Tasks should have priority levels (high, medium, low).
+- **Due Date**: Tasks should include a due date.
+- **Sort by Priority**: Users should be able to sort tasks by priority.
+- **Use Google Sheets as a Database**: Store and manage tasks using Google
+Sheets as the backend database.
+- **Drag & Drop**: Allow users to drag and drop tasks to change their order or status.
+- **Unit Testing**: Implement unit tests for components.
 
-To learn more about Next.js, take a look at the following resources:
+## Resources
+- Reference Design: [Figma - To-Do List Kanban](https://www.figma.com/community/file/1182683143786000762)
+- Google Sheet as a Database: [To-do List Database](https://docs.google.com/spreadsheets/d/19nr82cfYzdvDOWPAC3CmDhT17o5VEY5QfcqODIaJwIc/edit?gid=0#gid=0)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
