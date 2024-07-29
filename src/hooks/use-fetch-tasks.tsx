@@ -1,4 +1,4 @@
-import { TaskColumns } from '@/app/page';
+import { TaskColumns } from '@/app/home/page';
 import { SortState } from '@/hooks/use-sort-tasks';
 import { getTasks } from '@/services';
 import { filterTasks, Status } from '@/utils';

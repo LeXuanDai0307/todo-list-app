@@ -1,4 +1,4 @@
-import { TaskColumns } from '@/app/page';
+import { TaskColumns } from '@/app/home/page';
 import { Status, Order, sortTasks } from '@/utils';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 

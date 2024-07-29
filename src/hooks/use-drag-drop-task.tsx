@@ -1,4 +1,4 @@
-import { TaskColumns } from '@/app/page';
+import { TaskColumns } from '@/app/home/page';
 import { SortState } from '@/hooks/use-sort-tasks';
 import { updateTask } from '@/services';
 import { filterTasks, Status } from '@/utils';
@@ -43,9 +43,9 @@ export function useDragDropTask(params: useDragDropTaskParams) {
     if (dropTask && dropTask.status !== status) {
       try {
         setMoveLoading(true);
-        await updateTask(dropTask.id, dropTask);
         allTasks = allTasks.filter((task) => task.id !== dropTask.id);
         dropTask.status = status;
+        await updateTask(dropTask.id, dropTask);
         allTasks.push(dropTask);
         const { todoTasks, doneTasks } = filterTasks(allTasks, sortState);
         setTaskColumns({
