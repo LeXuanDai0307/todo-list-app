@@ -1,4 +1,4 @@
-[Todo List App Live Demo](https://todo-list-17zdj11s8-lexuandai0307s-projects.vercel.app/)
+[Todo List App Live Demo](https://todo-list-app-sigma-rosy.vercel.app/)
 
 ## Getting Started
 
