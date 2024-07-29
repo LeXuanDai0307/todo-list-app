@@ -30,4 +30,5 @@ Sheets as the backend database.
 ## Resources
 - Reference Design: [Figma - To-Do List Kanban](https://www.figma.com/community/file/1182683143786000762)
 - Google Sheet as a Database: [To-do List Database](https://docs.google.com/spreadsheets/d/19nr82cfYzdvDOWPAC3CmDhT17o5VEY5QfcqODIaJwIc/edit?gid=0#gid=0)
+- Google Sheet Apps Script: [Apps Script](https://drive.google.com/file/d/1-ZNBCWwEebZ4e36HPkYYX5KNT5p6TTyp/view?usp=sharing)
 
