@@ -1,5 +1,5 @@
-import { Modal, ModalProps } from '@/components/modal';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { Modal } from '@/components/modal';
+import { render, fireEvent } from '@testing-library/react';
 import styles from './style.module.css';
 
 describe('Modal Component', () => {
@@ -11,9 +11,9 @@ describe('Modal Component', () => {
   };
 
   it('should render the modal with the correct title and content', () => {
-    render(<Modal {...defaultProps} />);
-    expect(screen.getByText('Test Modal')).toBeInTheDocument();
-    expect(screen.getByText('Modal Content')).toBeInTheDocument();
+    const { getByText } = render(<Modal {...defaultProps} />);
+    expect(getByText('Test Modal')).toBeInTheDocument();
+    expect(getByText('Modal Content')).toBeInTheDocument();
   });
 
   it('should call onClose when the overlay is clicked', () => {
@@ -24,8 +24,8 @@ describe('Modal Component', () => {
   });
 
   it('should call onClose when the close button is clicked', () => {
-    render(<Modal {...defaultProps} />);
-    fireEvent.click(screen.getByRole('button'));
+    const { getByRole } = render(<Modal {...defaultProps} />);
+    fireEvent.click(getByRole('button'));
     expect(defaultProps.onClose).toHaveBeenCalled();
   });
 

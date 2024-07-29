@@ -13,22 +13,15 @@ describe('EffortLevel Component', () => {
     (LevelItem as jest.MockedFunction<typeof LevelItem>).mockClear();
   });
 
-  const renderComponent = (props: EffortLevelProps) =>
-    render(<EffortLevel {...props} />);
-
   it('should render the correct number of LevelItem components for EASY effort', () => {
-    const { getAllByTestId } = renderComponent({
-      effort: Effort.EASY,
-      priority: Priority.HIGH,
-    });
+    const { getAllByTestId } = render(
+      <EffortLevel effort={Effort.EASY} priority={Priority.HIGH} />,
+    );
     expect(getAllByTestId('level-item')).toHaveLength(3);
   });
 
-  it('should render correct priority for EASY effort', () => {
-    renderComponent({
-      effort: Effort.EASY,
-      priority: Priority.HIGH,
-    });
+  it('should render the correct number of LevelItem components for EASY effort', () => {
+    render(<EffortLevel effort={Effort.EASY} priority={Priority.HIGH} />);
     expect(LevelItem).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({ priority: Priority.HIGH }),
@@ -47,18 +40,7 @@ describe('EffortLevel Component', () => {
   });
 
   it('should render the correct number of LevelItem components for MODERATE effort', () => {
-    const { getAllByTestId } = renderComponent({
-      effort: Effort.MODERATE,
-      priority: Priority.MEDIUM,
-    });
-    expect(getAllByTestId('level-item')).toHaveLength(3);
-  });
-
-  it('should render the correct priority for MODERATE effort', () => {
-    renderComponent({
-      effort: Effort.MODERATE,
-      priority: Priority.MEDIUM,
-    });
+    render(<EffortLevel effort={Effort.MODERATE} priority={Priority.MEDIUM} />);
     expect(LevelItem).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({ priority: Priority.MEDIUM }),
@@ -77,18 +59,7 @@ describe('EffortLevel Component', () => {
   });
 
   it('should render the correct number of LevelItem components for HARD effort', () => {
-    const { getAllByTestId } = renderComponent({
-      effort: Effort.HARD,
-      priority: Priority.LOW,
-    });
-    expect(getAllByTestId('level-item')).toHaveLength(3);
-  });
-
-  it('should render the correct priority for HARD effort', () => {
-    renderComponent({
-      effort: Effort.HARD,
-      priority: Priority.LOW,
-    });
+    render(<EffortLevel effort={Effort.HARD} priority={Priority.LOW} />);
     expect(LevelItem).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({ priority: Priority.LOW }),

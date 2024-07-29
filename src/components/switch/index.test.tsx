@@ -1,5 +1,5 @@
 import { Switch, SwitchProps } from '@/components/switch';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import styles from './style.module.css';
 
 describe('Switch Component', () => {
@@ -10,23 +10,23 @@ describe('Switch Component', () => {
   };
 
   test('should display the label when provided', () => {
-    render(<Switch {...defaultProps} />);
-    expect(screen.getByText('Test Label')).toBeInTheDocument();
+    const { getByText } = render(<Switch {...defaultProps} />);
+    expect(getByText('Test Label')).toBeInTheDocument();
   });
 
   test('should not display the label when not provided', () => {
-    render(
+    const { queryByText } = render(
       <Switch
         isChecked={defaultProps.isChecked}
         setIsChecked={defaultProps.setIsChecked}
       />,
     );
-    expect(screen.queryByText('Test Label')).not.toBeInTheDocument();
+    expect(queryByText('Test Label')).not.toBeInTheDocument();
   });
 
   test('should toggle the checkbox state when clicked', () => {
-    render(<Switch {...defaultProps} />);
-    const checkbox = screen.getByRole('checkbox');
+    const { getByRole } = render(<Switch {...defaultProps} />);
+    const checkbox = getByRole('checkbox');
     fireEvent.click(checkbox);
     expect(defaultProps.setIsChecked).toHaveBeenCalledWith(true);
   });

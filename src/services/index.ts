@@ -1,10 +1,10 @@
-import { CreateTaskInput, UpdateTaskInput } from '@/types';
+import { CreateTaskInput, TaskEntity, UpdateTaskInput } from '@/types';
 
 const url = process.env.NEXT_PUBLIC_GOOGLE_SHEET_API ?? '';
 
 export const getTasks = async () => {
   const response = await fetch(url);
-  return await response.json();
+  return (await response.json()) as TaskEntity[];
 };
 
 export const createTask = async (task: CreateTaskInput) => {

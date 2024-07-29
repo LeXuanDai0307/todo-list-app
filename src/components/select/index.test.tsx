@@ -1,5 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import styles from './style.module.css';
+import { render, fireEvent } from '@testing-library/react';
 import { Select, SelectOption, SelectProps } from '@/components/select';
 
 describe('Select Component', () => {
@@ -15,14 +14,16 @@ describe('Select Component', () => {
   };
 
   it('should render correctly with given props', () => {
-    render(<Select {...defaultProps} />);
-    expect(screen.getByLabelText('Test Select')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('Option 1')).toBeInTheDocument();
+    const { getByLabelText, getByDisplayValue } = render(
+      <Select {...defaultProps} />,
+    );
+    expect(getByLabelText('Test Select')).toBeInTheDocument();
+    expect(getByDisplayValue('Option 1')).toBeInTheDocument();
   });
 
   it('should call onChange when a different option is selected', () => {
-    render(<Select {...defaultProps} />);
-    fireEvent.change(screen.getByLabelText('Test Select'), {
+    const { getByLabelText } = render(<Select {...defaultProps} />);
+    fireEvent.change(getByLabelText('Test Select'), {
       target: { value: 'option2' },
     });
     expect(defaultProps.onChange).toHaveBeenCalledWith(
@@ -32,8 +33,8 @@ describe('Select Component', () => {
   });
 
   it('renders all options correctly', () => {
-    render(<Select {...defaultProps} />);
-    expect(screen.getByText('Option 1')).toBeInTheDocument();
-    expect(screen.getByText('Option 2')).toBeInTheDocument();
+    const { getByText } = render(<Select {...defaultProps} />);
+    expect(getByText('Option 1')).toBeInTheDocument();
+    expect(getByText('Option 2')).toBeInTheDocument();
   });
 });
