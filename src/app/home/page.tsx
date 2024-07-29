@@ -4,7 +4,7 @@ import {
   SortTasksButton,
   TaskCard,
   TodoColumn,
-} from '../../features';
+} from '@/features';
 import {
   faClipboard,
   faSquareCheck,
@@ -13,11 +13,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './page.module.css';
 import { useState } from 'react';
 import { TaskEntity } from '@/types';
-import { Status } from '../../utils';
-import { useDragDropTask, useFetchTask, useSortTasks } from '../../hooks';
+import { Status } from '@/utils';
+import { useDragDropTask, useFetchTask, useSortTasks } from '@/hooks';
 import clsx from 'clsx';
-import { Loading } from '../../components';
-import { TodoContext } from '../../context';
+import { Loading } from '@/components';
+import { TodoContext } from '@/context';
 
 export type TaskColumns = {
   [Status.TODO]: TaskEntity[];
