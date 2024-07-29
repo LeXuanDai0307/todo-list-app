@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from 'react';
 import styles from './style.module.css';
 
-interface TextFieldProps {
+export interface TextFieldProps {
   name: string;
   label: string;
   value: string;
@@ -21,6 +21,7 @@ export function TextField(props: TextFieldProps) {
     <div className={styles.inputContainer}>
       <label htmlFor={label}>{label}</label>
       <input
+        id={label}
         name={name}
         type={type}
         placeholder={label}

@@ -7,7 +7,7 @@ export interface SelectOption {
   label: string;
 }
 
-interface SelectProps {
+export interface SelectProps {
   value?: SelectOption;
   name: string;
   options: SelectOption[];

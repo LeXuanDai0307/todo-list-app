@@ -1,6 +1,6 @@
 import styles from './style.module.css';
 
-interface SwitchProps {
+export interface SwitchProps {
   label?: string;
   isChecked: boolean;
   setIsChecked: (isChecked: boolean) => void;

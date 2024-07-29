@@ -2,7 +2,7 @@ import { Priority, PRIORITY_CLASS } from '@/utils';
 import styles from './style.module.css';
 import clsx from 'clsx';
 
-interface DueDateTagProps {
+export interface DueDateTagProps {
   dueDate: string;
   priority?: Priority;
 }

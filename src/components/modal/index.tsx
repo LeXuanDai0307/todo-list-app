@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { ReactNode } from 'react';
 
-interface ModalProps {
+export interface ModalProps {
   title?: string;
   open: boolean;
   onClose: () => void;

@@ -2,7 +2,7 @@ import { HTMLAttributes, ReactNode } from 'react';
 import styles from './style.module.css';
 import clsx from 'clsx';
 
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   color?: 'primary' | 'secondary' | 'default';
   type?: 'submit' | 'reset' | 'button' | undefined;
